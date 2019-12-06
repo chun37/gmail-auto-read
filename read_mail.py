@@ -64,7 +64,9 @@ def main(username_list, senders_list):
             messages for s in senders
             if (messages := client.get_mails_with_sender_address(s))]
         read_mails = list(itertools.chain.from_iterable(read_mails))
-        print(f"{username}: 自動既読するメール{len(read_mails)}件")
+        if (mails_count := len(read_mails)) == 0:
+            continue
+        print(f"{username}: 自動既読するメール{mails_count}件")
         [client.read_mail(x) for x in tqdm(read_mails)]
 
 
